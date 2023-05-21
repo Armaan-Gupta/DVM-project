@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+    {% for product in products %}
+      <div class="col md-3" style="margin-bottom: 2rem;">
+        <div class="card" style="width: 18rem;">
+          
+          <img class="card-img-top" src="{{ product.get_thumbnail }}" alt="Image for {{ product.title }}">
+          
+          <div class="card-body">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="card-text">Rs. {{ product.price }}</p>
+            <a href="{% url 'product_detail' product.slug %}" class="btn btn-primary">Visit</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
+

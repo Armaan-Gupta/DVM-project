@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1 class="mb-5">Checkout</h1>
+
+    <h4>Total cost: Rs.{{ cart.get_total_cost }}</h4>
+
+    <form method='post' action=".">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-outline-danger mb-3">Checkout</button>
+    </form>
+{% endblock content %}

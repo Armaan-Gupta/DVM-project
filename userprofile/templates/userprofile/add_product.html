@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>{{ title }}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="form-group">
+            <button class="btn btn-outline-info">Add Product</button>
+        </div>
+    </form>
+    {% if product %}
+        <a href="{% url 'delete_product' product.id %}" class="btn btn-outline-danger mb-3">Delete Product</a>
+    {% endif %}
+{% endblock content %}

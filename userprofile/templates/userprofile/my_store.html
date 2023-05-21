@@ -1,0 +1,61 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <h1>My Store</h1>
+    <hr>
+    <br>
+
+    <h2 class="mb-4">My Orders</h2>
+    <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <b>Order ID</b>
+          </div>
+          <div class="col-sm">
+            <b>Title</b>
+          </div>
+          <div class="col-sm">
+            <b>Quantity</b>
+          </div>
+          <div class="col-sm">
+            <b>Price</b>
+          </div>
+        </div>
+      </div>
+    {% for order_item in order_items %}
+      <div class="row">
+        <div class="col-sm">
+          <a href="{% url 'my_store_order_detail' order_item.order.id %}">{{ order_item.order.id }}</a>
+        </div>
+        <div class="col-sm">
+          {{ order_item.product.title }}
+        </div>
+        <div class="col-sm">
+          {{ order_item.quantity }}
+        </div>
+        <div class="col-sm">
+          Rs.{{ order_item.price }}
+        </div>
+      </div>
+    {% endfor %}
+    <hr>
+    <br>
+
+    <a class="mt-3 btn btn-outline-secondary" href="{% url 'add_product' %}">Add products</a>
+    <h2 class="mt-4"> My Products</h2>
+    {% if request.user.products.all %}
+    {%  for product in request.user.products.all %}
+        <article class="media content-section">
+            <div class="media-body">
+            <div class="article-metadata">
+                <small class="text-muted">{{ product.created_at|date:'F d, Y' }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'edit_product' product.id %}">{{ product.title }}</a></h2>
+            <p class="article-content">Rs {{ product.price }}</p>
+            <!--<p class="article-content">Vendor name: <a href="{% url 'vendor_detail' product.user.id %}">{% firstof product.user.get_full_name product.user.username %}</a></p>-->
+            </div>
+        </article>
+    {% endfor %}
+    {% else %}
+        <p class="mt-3">You do not have any products yet</p>
+    {% endif %}
+{% endblock content %}

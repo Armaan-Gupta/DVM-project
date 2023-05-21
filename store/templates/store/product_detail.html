@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+            {% if product.image %}
+                <img src="{{product.image.url}}" class="img-fluid mb-3" alt="Responsive image">
+            {% endif %}
+            <h2 class = 'article-title'>{{ product.title }}</h2>
+            <p class="article-content">Price: Rs {{ product.price }}</p>
+            <p class="article-content">Vendor: {% firstof product.user.get_full_name product.user.username %}</p>
+            <p class="article-content">{{ product.description }}</p>
+            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-secondary">Add to Cart</a>
+        </div>
+    </article>
+{% endblock content %}

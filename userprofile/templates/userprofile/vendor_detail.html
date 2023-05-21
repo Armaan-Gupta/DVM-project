@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <h2>{% firstof user.get_full_name user.username %}</h2>
+    {%  for product in user.products.all %}
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <small class="text-muted">{{ product.created_at|date:'F d, Y' }}</small>
+          </div>
+          <h2><a class="article-title" href="{% url 'product_detail' product.slug %}">{{ product.title }}</a></h2>
+          <p class="article-content">Rs {{ product.price }}</p>
+        </div>
+      </article>
+    {% endfor %}
+{% endblock content %}

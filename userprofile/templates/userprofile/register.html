@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+{%  block content %}
+    <div class='content-section'>
+        <form method='POST'>
+            {% csrf_token %}          <!--Added security-->
+            <fieldset class='form-group'>                <!--Used to grout related elements-->
+                <legend class='border-bottom mb-4'>              <!--Gives a little more detail to our form-->
+                    Join Today
+                </legend>
+                {{ form|crispy }}       <!--renders all fields of the form in separate paragraphs-->
+            </fieldset>
+            <div class='form-group'>
+                <button class='btn-outline-info' type='submit'>Sign Up</button>
+            </div>
+        </form>
+        <div class='border-top pt-3'>
+            <small class='text-muted'>
+                Already have an Account?<a class="ml-2" href="{% url 'login' %}">Log In</a>
+            </small>
+        </div>
+    </div>
+{%  endblock content %}
