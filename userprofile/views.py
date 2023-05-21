@@ -126,3 +126,10 @@ def register(request):
 @login_required
 def profile(request):
     return render(request, 'userprofile/profile.html')
+
+@login_required
+def my_orders(request):
+    order_items = OrderItem.objects.filter(order__created_by=request.user)
+    return render(request, 'userprofile/my_orders.html', {
+        'order_items':order_items,
+    })

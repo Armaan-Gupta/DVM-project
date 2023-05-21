@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2 class="mb-4">My Orders</h2>
+<div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <b>Order ID</b>
+      </div>
+      <div class="col-sm">
+        <b>Product</b>
+      </div>
+      <div class="col-sm">
+        <b>Quantity</b>
+      </div>
+      <div class="col-sm">
+        <b>Price</b>
+      </div>
+    </div>
+  </div>
+{% for order_item in order_items %}
+  <div class="row">
+    <div class="col-sm">
+      {{ order_item.order.id }}
+    </div>
+    <div class="col-sm">
+      {{ order_item.product.title }}
+    </div>
+    <div class="col-sm">
+      {{ order_item.quantity }}
+    </div>
+    <div class="col-sm">
+      Rs.{{ order_item.price }}
+    </div>
+  </div>
+{% endfor %}
+{% endblock content %}
