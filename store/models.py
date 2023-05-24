@@ -22,6 +22,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=50)
     description = models.TextField(blank=True)
     price = models.IntegerField()
+    no_of_items = models.IntegerField(default=1)
     image = models.ImageField(upload_to='uploads/product_images/', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/product_images/thumbnails/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -75,6 +76,16 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
     price = models.IntegerField()
     quantity = models.IntegerField(default=1)
+
+
+class ProductReview(models.Model):
+    product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE)
+
+    content = models.TextField(blank=True, null=True)
+    stars = models.IntegerField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
 
 
 

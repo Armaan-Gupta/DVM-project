@@ -133,3 +133,19 @@ def my_orders(request):
     return render(request, 'userprofile/my_orders.html', {
         'order_items':order_items,
     })
+
+@login_required
+def add_money_to_wallet(request):
+    if request.method == 'POST':
+        amount = float(request.POST.get('amount', 0))
+        if amount > 0:
+            user = Userprofile.objects.get(user=request.user)
+            user.wallet += amount
+            user.save()
+            messages.success(request, f"Added {amount} to your wallet.")
+            return redirect('cart_view')
+        else:
+            messages.error(request, "Invalid amount. Please enter a positive number.")
+    
+    return render(request, 'userprofile/add_money.html')
+

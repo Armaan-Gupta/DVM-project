@@ -51,6 +51,7 @@
             </div>
             <h2><a class="article-title" href="{% url 'edit_product' product.id %}">{{ product.title }}</a></h2>
             <p class="article-content">Rs {{ product.price }}</p>
+            <p class="article-content">No. of items: {{ product.no_of_items }}</p>
             <!--<p class="article-content">Vendor name: <a href="{% url 'vendor_detail' product.user.id %}">{% firstof product.user.get_full_name product.user.username %}</a></p>-->
             </div>
         </article>

@@ -9,7 +9,22 @@
             <p class="article-content">Price: Rs {{ product.price }}</p>
             <p class="article-content">Vendor: {% firstof product.user.get_full_name product.user.username %}</p>
             <p class="article-content">{{ product.description }}</p>
-            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-secondary">Add to Cart</a>
+            <p class="article-content">No. of items: {{ product.no_of_items }}</p>
+            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-secondary mb-2">Add to Cart</a>
+            <h4 class="article-title">Reviews</h4>
+            <p class="article-content">
+                {% for review in product.reviews.all %}
+                    <div class="bg-light">
+                        <strong>Date: </strong>{{ review.date_added|date:"Y-m-d" }},
+                        <strong>Stars: </strong>{{ review.stars }}<br>
+                        {{ review.content }}
+                    </div>
+                
+                {% empty %}
+                    <div class="bg-light">No reviews yet...</div>
+                {% endfor %}
+            </p>
+            
         </div>
     </article>
 {% endblock content %}
