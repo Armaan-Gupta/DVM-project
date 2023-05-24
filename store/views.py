@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from userprofile.models import Userprofile
-from .models import Product, Order, OrderItem
+from .models import Product, Order, OrderItem, ProductReview
 from .forms import OrderForm
 from .cart import Cart
 
@@ -106,8 +106,17 @@ def remove_from_cart(request, product_id):
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
 
+    # Add review
+    if request.method == 'POST' and request.user.is_authenticated:
+        stars = request.POST.get('stars', '3')
+        content = request.POST.get('content', '')
+
+        review = ProductReview.objects.create(product=product, user=request.user, stars=stars, content=content)
+
+        return redirect('product_detail', slug=slug)
+
     return render(request, 'store/product_detail.html', {
-        'product':product
+        'product':product,
     })
 
 
