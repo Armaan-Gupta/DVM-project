@@ -21,9 +21,11 @@ from django.urls import path, include
 from core.views import frontpage, about
 from userprofile import views as user_views
 from django.contrib.auth import views as auth_views
+import allauth.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include(allauth.urls)),
     path('about/', about, name='about'),
     path('register/', user_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='userprofile/login.html'), name='login'),

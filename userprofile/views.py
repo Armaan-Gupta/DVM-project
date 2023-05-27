@@ -8,6 +8,7 @@ from store.forms import ProductForm
 from django.utils.text import slugify
 from store.models import Product, Order, OrderItem
 from .models import Userprofile
+from django.db import IntegrityError
 
 def vendor_detail(request, pk):
     user = User.objects.get(pk=pk)
@@ -80,12 +81,15 @@ def register(request):
             user = form.save(commit=False)
             user.save()
             is_vendor = form.cleaned_data['is_vendor']
-            userprofile = Userprofile.objects.create(user=user,
-                                                     is_vendor = is_vendor)
-            userprofile.save()
-
-            messages.success(request, f'Your account has been created, You can now login!')
-            return redirect('login')
+            try:
+                userprofile = Userprofile.objects.create(user=user, is_vendor=is_vendor)
+                userprofile.save()
+                messages.success(request, 'Your account has been created. You can now login!')
+                return redirect('login')
+            except IntegrityError:
+                # Handle the case when a Userprofile already exists for the user
+                messages.error(request, 'A profile already exists for this user.')
+                return redirect('register')
         else:
             return render(request, 'userprofile/register.html', {'form': form})
         

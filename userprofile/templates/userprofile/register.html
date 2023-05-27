@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load socialaccount %}
 {% load crispy_forms_tags %}
 {%  block content %}
     <div class='content-section'>
@@ -14,6 +15,8 @@
                 <button class='btn-outline-info' type='submit'>Sign Up</button>
             </div>
         </form>
+        <br>
+        <a class="btn btn-primary" href="{% provider_login_url 'google' %}">Login With Google</a>
         <div class='border-top pt-3'>
             <small class='text-muted'>
                 Already have an Account?<a class="ml-2" href="{% url 'login' %}">Log In</a>

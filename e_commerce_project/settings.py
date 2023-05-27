@@ -40,13 +40,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'core',
     'userprofile',
     'store',
     'crispy_forms',
     'bootstrap5',
     'crispy_bootstrap5',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
+SITE_ID = 3
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -137,5 +144,33 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'
 
+
 LOGIN_REDIRECT_URL = 'frontpage'
 LOGIN_URL = 'login'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'APP': {
+            'client_id': '171724096520-m8nv5u8o29gfhmfhou4623vdd1id3nd1.apps.googleusercontent.com',
+            'secret': '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'
+        }
+    }
+}
+
+
+
+
+# client id : 171724096520-du3g3kgrghdmkopnhho2vv85gjuo7bn7.apps.googleusercontent.com
+# client secret key: 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

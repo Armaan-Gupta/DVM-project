@@ -24,7 +24,7 @@
                 {% endfor %}
             </p>
 
-            {% if request.user.is_authenticated %}
+            {% if request.user.is_vendor %}
             <form method="POST" acion=".">
                 {% csrf_token %}
                 <div class="form-group">
@@ -46,7 +46,7 @@
                 </div>
             </form>
             {% else %}
-            <div class="bg-light mb-2 mt-2">Please sign in to write reviews</div>
+            <div class="bg-light mb-2 mt-2">You cannot write reviews</div>
             {% endif %}
             
         </div>
